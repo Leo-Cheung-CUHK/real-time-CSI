@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/lihao/Documents/SDR_Gnuradio/rpnc-release-7621b9ddcd85-gr3.7.x-54afffeca09e/build/swig/_raw_qam_swig_tag.cpp
+

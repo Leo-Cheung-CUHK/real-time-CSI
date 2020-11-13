@@ -1,0 +1,86 @@
+
+!!!check the patch for the tag bug(delay block)!!!
+################################################################################
+Message: 1
+Date: Sun, 27 Dec 2015 21:43:02 +0000 (UTC)
+From: git@gnuradio.org
+To: commit-gnuradio@gnu.org
+Subject: [Commit-gnuradio] [gnuradio] 01/02: Fixed delayed tag
+        propagation
+Message-ID: <20151227214302.507301A8DE0@hertz.gnuradio.org>
+Content-Type: text/plain; charset=utf-8
+
+This is an automated email from the git hooks/post-receive script.
+
+jcorgan pushed a commit to branch maint
+in repository gnuradio.
+
+commit ae2e24f86b562a5bdcb9f5170e0abb1cd15838cf
+Author: DaulPavid <pudavid@fastmail.com>
+Date:   Fri Dec 25 20:04:09 2015 -0500
+
+    Fixed delayed tag propagation
+---
+ gnuradio-runtime/lib/buffer.cc | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/gnuradio-runtime/lib/buffer.cc b/gnuradio-runtime/lib/buffer.cc
+index 4840614..b706408 100644
+--- a/gnuradio-runtime/lib/buffer.cc
++++ b/gnuradio-runtime/lib/buffer.cc
+@@ -347,8 +347,8 @@ namespace gr {
+     gr::thread::scoped_lock guard(*mutex());
+
+     v.resize(0);
+-    std::multimap<uint64_t,tag_t>::iterator itr = d_buffer->get_tags_lower_bound(abs_start);
+-    std::multimap<uint64_t,tag_t>::iterator itr_end   = d_buffer->get_tags_upper_bound(abs_end);
++    std::multimap<uint64_t,tag_t>::iterator itr = d_buffer->get_tags_lower_bound(std::min(abs_start, abs_start - d_attr_delay));
++    std::multimap<uint64_t,tag_t>::iterator itr_end = d_buffer->get_tags_upper_bound(std::min(abs_end, abs_end - d_attr_delay));
+
+     uint64_t item_time;
+     while(itr != itr_end) {
+
+
+################################################################################
+Compile:
+	$mkdir -p build install
+	$cd build
+	$cmake -DCMAKE_INSTALL_PREFIX=../install/ ../
+	$make
+	$make install
+
+
+################################################################################
+iperf -s -u -i 1
+iperf -c 192.168.200.2 -u -b 1m -t 30
+
+ping 192.168.200.1 -c 1000
+
+kill -9 $(ps auxf | grep "test_ofdm*" | awk '{print $2}')
+
+--rx-args="recv_frame_size=256,num_recv_frames=4,send_frame_size=256,num_send_frames=4"
+
+
+Point-to-Point:
+################################################################################
+./test_ofdm_tx_main.py -f 2.185G -s 512 --pause 0.02 -W 10e6 -N 60000 --time
+./test_ofdm_rx_main.py -f 2.185G -s 512 -W 10e6
+
+
+XBeacon Mode:
+################################################################################
+./test_pnc_beacon_endnode.py --rx-freq 2.185G --tx-freq 2.585G --rx-args addr=192.168.20.2 --tx-args addr=192.168.20.2 -s 512 --node A --tx-amplitude 0.05 -W 5e6 --pause 0.015
+
+./test_pnc_beacon_endnode.py --rx-freq 2.185G --tx-freq 2.585G --rx-args addr=192.168.20.2 --tx-args addr=192.168.20.2 -s 512 --node B --tx-amplitude 0.03 -W 5e6 --pause 0.015
+
+./test_pnc_relay.py --tx-freq 2.185G --rx-freq 2.585G --tx-args addr=192.168.20.2 --rx-args addr=192.168.20.2 -s 512 --tx-amplitude 0.15 --beacon-num 200000 --beacon-pause 0.02 -W 5e6 --time
+
+
+Tunnel Mode:
+################################################################################
+./test_pnc_tunnel_beacon_endnode.py --rx-freq 2.185G --tx-freq 2.585G --rx-args addr=192.168.20.2 --tx-args addr=192.168.20.2 -s 512 --node A --tx-amplitude 0.1 -W 5e6 --pause 0.015
+
+./test_pnc_tunnel_beacon_endnode.py --rx-freq 2.185G --tx-freq 2.585G --rx-args addr=192.168.20.2 --tx-args addr=192.168.20.2 -s 512 --node B --tx-amplitude 0.05 -W 5e6 --pause 0.015
+
+./test_pnc_relay.py --tx-freq 2.185G --rx-freq 2.585G --tx-args addr=192.168.20.2 --rx-args addr=192.168.20.2 -s 512 --tx-amplitude 0.15 --beacon-num 200000 --beacon-pause 0.03 -W 5e6 --time
+
