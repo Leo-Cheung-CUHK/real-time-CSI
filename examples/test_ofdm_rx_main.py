@@ -72,6 +72,8 @@ class my_top_block(gr.top_block):
     ts = msg.timestamp_sec() + msg.timestamp_frac_sec() if msg.timestamp_valid() else None
     (snr,) = msg.get_snr_values()
     (cfo,) = msg.cfo_values()
+    (rssi,) = msg.rssi_values()
+
     global n_rcvd, n_right
     n_rcvd = n_rcvd + 1
 
@@ -90,8 +92,8 @@ class my_top_block(gr.top_block):
         log = "%d %.06f %.06f\n" % (pktno, decode_time, time.time())
         f.write(log)
 
-    ostr = "Rx: %r type:%s %d/%d ts=%.06f snr=%.01f cfo=%.06f decode_time=%.06fs\n    len=%d %s ... %s" \
-          % (ok, chr(pkt_type), n_right, n_rcvd, ts, snr, cfo, decode_time, len(pkt), string_to_hex_list(pkt[0:16]), string_to_hex_list(pkt[-4:-1]))
+    ostr = "Rx: %r type:%s %d/%d ts=%.06f snr=%.01f cfo=%.06f rssi=%.06f decode_time=%.06fs\n    len=%d %s ... %s" \
+        % (ok, chr(pkt_type), n_right, n_rcvd, ts, snr, cfo, rssi, decode_time, len(pkt), string_to_hex_list(pkt[0:16]), string_to_hex_list(pkt[-4:-1]))
     self.prt_msgq.put(ostr)
 
   def add_options(normal, expert):

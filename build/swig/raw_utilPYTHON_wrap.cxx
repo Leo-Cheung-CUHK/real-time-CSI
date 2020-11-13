@@ -5851,6 +5851,39 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_raw_message_sptr_rssi_valid(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  boost::shared_ptr< raw_message > *arg1 = (boost::shared_ptr< raw_message > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if(!PyArg_UnpackTuple(args,(char *)"raw_message_sptr_rssi_valid",1,1,&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_boost__shared_ptrT_raw_message_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "raw_message_sptr_rssi_valid" "', argument " "1"" of type '" "boost::shared_ptr< raw_message > const *""'"); 
+  }
+  arg1 = reinterpret_cast< boost::shared_ptr< raw_message > * >(argp1);
+  {
+    try {
+      result = (bool)(*arg1)->rssi_valid();
+    }
+    catch(std::exception &e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch(...) {
+      SWIG_exception(SWIG_RuntimeError, "Unknown exception");
+    }
+    
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_raw_message_sptr_snr_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   boost::shared_ptr< raw_message > *arg1 = (boost::shared_ptr< raw_message > *) 0 ;
@@ -6000,6 +6033,39 @@ SWIGINTERN PyObject *_wrap_raw_message_sptr_cfo_values(PyObject *SWIGUNUSEDPARM(
   {
     try {
       result = (*arg1)->cfo_values();
+    }
+    catch(std::exception &e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch(...) {
+      SWIG_exception(SWIG_RuntimeError, "Unknown exception");
+    }
+    
+  }
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_raw_message_sptr_rssi_values(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  boost::shared_ptr< raw_message > *arg1 = (boost::shared_ptr< raw_message > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if(!PyArg_UnpackTuple(args,(char *)"raw_message_sptr_rssi_values",1,1,&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_boost__shared_ptrT_raw_message_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "raw_message_sptr_rssi_values" "', argument " "1"" of type '" "boost::shared_ptr< raw_message > const *""'"); 
+  }
+  arg1 = reinterpret_cast< boost::shared_ptr< raw_message > * >(argp1);
+  {
+    try {
+      result = (*arg1)->rssi_values();
     }
     catch(std::exception &e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -6178,6 +6244,52 @@ SWIGINTERN PyObject *_wrap_raw_message_sptr_set_cfo(PyObject *SWIGUNUSEDPARM(sel
   {
     try {
       (*arg1)->set_cfo(arg2);
+    }
+    catch(std::exception &e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch(...) {
+      SWIG_exception(SWIG_RuntimeError, "Unknown exception");
+    }
+    
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_raw_message_sptr_set_rssi(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  boost::shared_ptr< raw_message > *arg1 = (boost::shared_ptr< raw_message > *) 0 ;
+  std::vector< double,std::allocator< double > > arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "rssi_list", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:raw_message_sptr_set_rssi",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_boost__shared_ptrT_raw_message_t, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "raw_message_sptr_set_rssi" "', argument " "1"" of type '" "boost::shared_ptr< raw_message > *""'"); 
+  }
+  arg1 = reinterpret_cast< boost::shared_ptr< raw_message > * >(argp1);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "raw_message_sptr_set_rssi" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > >""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      (*arg1)->set_rssi(arg2);
     }
     catch(std::exception &e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7125,6 +7237,39 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_raw_message_rssi_valid(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  raw_message *arg1 = (raw_message *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  bool result;
+  
+  if(!PyArg_UnpackTuple(args,(char *)"raw_message_rssi_valid",1,1,&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_raw_message, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "raw_message_rssi_valid" "', argument " "1"" of type '" "raw_message const *""'"); 
+  }
+  arg1 = reinterpret_cast< raw_message * >(argp1);
+  {
+    try {
+      result = (bool)((raw_message const *)arg1)->rssi_valid();
+    }
+    catch(std::exception &e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch(...) {
+      SWIG_exception(SWIG_RuntimeError, "Unknown exception");
+    }
+    
+  }
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_raw_message_snr_value(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   raw_message *arg1 = (raw_message *) 0 ;
@@ -7274,6 +7419,39 @@ SWIGINTERN PyObject *_wrap_raw_message_cfo_values(PyObject *SWIGUNUSEDPARM(self)
   {
     try {
       result = ((raw_message const *)arg1)->cfo_values();
+    }
+    catch(std::exception &e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch(...) {
+      SWIG_exception(SWIG_RuntimeError, "Unknown exception");
+    }
+    
+  }
+  resultobj = swig::from(static_cast< std::vector< double,std::allocator< double > > >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_raw_message_rssi_values(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  raw_message *arg1 = (raw_message *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  std::vector< double,std::allocator< double > > result;
+  
+  if(!PyArg_UnpackTuple(args,(char *)"raw_message_rssi_values",1,1,&obj0)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_raw_message, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "raw_message_rssi_values" "', argument " "1"" of type '" "raw_message const *""'"); 
+  }
+  arg1 = reinterpret_cast< raw_message * >(argp1);
+  {
+    try {
+      result = ((raw_message const *)arg1)->rssi_values();
     }
     catch(std::exception &e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -7452,6 +7630,52 @@ SWIGINTERN PyObject *_wrap_raw_message_set_cfo(PyObject *SWIGUNUSEDPARM(self), P
   {
     try {
       (arg1)->set_cfo(arg2);
+    }
+    catch(std::exception &e) {
+      SWIG_exception(SWIG_RuntimeError, e.what());
+    }
+    catch(...) {
+      SWIG_exception(SWIG_RuntimeError, "Unknown exception");
+    }
+    
+  }
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_raw_message_set_rssi(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+  PyObject *resultobj = 0;
+  raw_message *arg1 = (raw_message *) 0 ;
+  std::vector< double,std::allocator< double > > arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  char *  kwnames[] = {
+    (char *) "self",(char *) "rssi_list", NULL 
+  };
+  
+  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OO:raw_message_set_rssi",kwnames,&obj0,&obj1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_raw_message, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "raw_message_set_rssi" "', argument " "1"" of type '" "raw_message *""'"); 
+  }
+  arg1 = reinterpret_cast< raw_message * >(argp1);
+  {
+    std::vector< double,std::allocator< double > > *ptr = (std::vector< double,std::allocator< double > > *)0;
+    int res = swig::asptr(obj1, &ptr);
+    if (!SWIG_IsOK(res) || !ptr) {
+      SWIG_exception_fail(SWIG_ArgError((ptr ? res : SWIG_TypeError)), "in method '" "raw_message_set_rssi" "', argument " "2"" of type '" "std::vector< double,std::allocator< double > >""'"); 
+    }
+    arg2 = *ptr;
+    if (SWIG_IsNewObj(res)) delete ptr;
+  }
+  {
+    try {
+      (arg1)->set_rssi(arg2);
     }
     catch(std::exception &e) {
       SWIG_exception(SWIG_RuntimeError, e.what());
@@ -33685,15 +33909,18 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"raw_message_sptr_pctime_sec", _wrap_raw_message_sptr_pctime_sec, METH_VARARGS, (char *)"raw_message_sptr_pctime_sec(raw_message_sptr self) -> double"},
 	 { (char *)"raw_message_sptr_pctime_frac_sec", _wrap_raw_message_sptr_pctime_frac_sec, METH_VARARGS, (char *)"raw_message_sptr_pctime_frac_sec(raw_message_sptr self) -> double"},
 	 { (char *)"raw_message_sptr_cfo_valid", _wrap_raw_message_sptr_cfo_valid, METH_VARARGS, (char *)"raw_message_sptr_cfo_valid(raw_message_sptr self) -> bool"},
+	 { (char *)"raw_message_sptr_rssi_valid", _wrap_raw_message_sptr_rssi_valid, METH_VARARGS, (char *)"raw_message_sptr_rssi_valid(raw_message_sptr self) -> bool"},
 	 { (char *)"raw_message_sptr_snr_value", _wrap_raw_message_sptr_snr_value, METH_VARARGS, (char *)"raw_message_sptr_snr_value(raw_message_sptr self) -> double"},
 	 { (char *)"raw_message_sptr_get_snr_values", _wrap_raw_message_sptr_get_snr_values, METH_VARARGS, (char *)"raw_message_sptr_get_snr_values(raw_message_sptr self) -> pmt_vector_double"},
 	 { (char *)"raw_message_sptr_power_list", _wrap_raw_message_sptr_power_list, METH_VARARGS, (char *)"raw_message_sptr_power_list(raw_message_sptr self) -> pmt_vector_double"},
 	 { (char *)"raw_message_sptr_power_list2", _wrap_raw_message_sptr_power_list2, METH_VARARGS, (char *)"raw_message_sptr_power_list2(raw_message_sptr self) -> pmt_vector_double"},
 	 { (char *)"raw_message_sptr_cfo_values", _wrap_raw_message_sptr_cfo_values, METH_VARARGS, (char *)"raw_message_sptr_cfo_values(raw_message_sptr self) -> pmt_vector_double"},
+	 { (char *)"raw_message_sptr_rssi_values", _wrap_raw_message_sptr_rssi_values, METH_VARARGS, (char *)"raw_message_sptr_rssi_values(raw_message_sptr self) -> pmt_vector_double"},
 	 { (char *)"raw_message_sptr_set_type", (PyCFunction) _wrap_raw_message_sptr_set_type, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_type(raw_message_sptr self, long type)"},
 	 { (char *)"raw_message_sptr_set_arg1", (PyCFunction) _wrap_raw_message_sptr_set_arg1, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_arg1(raw_message_sptr self, double arg1)"},
 	 { (char *)"raw_message_sptr_set_arg2", (PyCFunction) _wrap_raw_message_sptr_set_arg2, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_arg2(raw_message_sptr self, double arg2)"},
 	 { (char *)"raw_message_sptr_set_cfo", (PyCFunction) _wrap_raw_message_sptr_set_cfo, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_cfo(raw_message_sptr self, pmt_vector_double cfo_list)"},
+	 { (char *)"raw_message_sptr_set_rssi", (PyCFunction) _wrap_raw_message_sptr_set_rssi, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_rssi(raw_message_sptr self, pmt_vector_double rssi_list)"},
 	 { (char *)"raw_message_sptr_set_snr", (PyCFunction) _wrap_raw_message_sptr_set_snr, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_snr(raw_message_sptr self, double snr)"},
 	 { (char *)"raw_message_sptr_set_snr_list", (PyCFunction) _wrap_raw_message_sptr_set_snr_list, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_snr_list(raw_message_sptr self, pmt_vector_double snr_list)"},
 	 { (char *)"raw_message_sptr_set_power_list", (PyCFunction) _wrap_raw_message_sptr_set_power_list, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_sptr_set_power_list(raw_message_sptr self, pmt_vector_double power_list)"},
@@ -33722,15 +33949,18 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"raw_message_pctime_sec", _wrap_raw_message_pctime_sec, METH_VARARGS, (char *)"raw_message_pctime_sec(raw_message self) -> double"},
 	 { (char *)"raw_message_pctime_frac_sec", _wrap_raw_message_pctime_frac_sec, METH_VARARGS, (char *)"raw_message_pctime_frac_sec(raw_message self) -> double"},
 	 { (char *)"raw_message_cfo_valid", _wrap_raw_message_cfo_valid, METH_VARARGS, (char *)"raw_message_cfo_valid(raw_message self) -> bool"},
+	 { (char *)"raw_message_rssi_valid", _wrap_raw_message_rssi_valid, METH_VARARGS, (char *)"raw_message_rssi_valid(raw_message self) -> bool"},
 	 { (char *)"raw_message_snr_value", _wrap_raw_message_snr_value, METH_VARARGS, (char *)"raw_message_snr_value(raw_message self) -> double"},
 	 { (char *)"raw_message_get_snr_values", _wrap_raw_message_get_snr_values, METH_VARARGS, (char *)"raw_message_get_snr_values(raw_message self) -> pmt_vector_double"},
 	 { (char *)"raw_message_power_list", _wrap_raw_message_power_list, METH_VARARGS, (char *)"raw_message_power_list(raw_message self) -> pmt_vector_double"},
 	 { (char *)"raw_message_power_list2", _wrap_raw_message_power_list2, METH_VARARGS, (char *)"raw_message_power_list2(raw_message self) -> pmt_vector_double"},
 	 { (char *)"raw_message_cfo_values", _wrap_raw_message_cfo_values, METH_VARARGS, (char *)"raw_message_cfo_values(raw_message self) -> pmt_vector_double"},
+	 { (char *)"raw_message_rssi_values", _wrap_raw_message_rssi_values, METH_VARARGS, (char *)"raw_message_rssi_values(raw_message self) -> pmt_vector_double"},
 	 { (char *)"raw_message_set_type", (PyCFunction) _wrap_raw_message_set_type, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_type(raw_message self, long type)"},
 	 { (char *)"raw_message_set_arg1", (PyCFunction) _wrap_raw_message_set_arg1, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_arg1(raw_message self, double arg1)"},
 	 { (char *)"raw_message_set_arg2", (PyCFunction) _wrap_raw_message_set_arg2, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_arg2(raw_message self, double arg2)"},
 	 { (char *)"raw_message_set_cfo", (PyCFunction) _wrap_raw_message_set_cfo, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_cfo(raw_message self, pmt_vector_double cfo_list)"},
+	 { (char *)"raw_message_set_rssi", (PyCFunction) _wrap_raw_message_set_rssi, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_rssi(raw_message self, pmt_vector_double rssi_list)"},
 	 { (char *)"raw_message_set_snr", (PyCFunction) _wrap_raw_message_set_snr, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_snr(raw_message self, double snr)"},
 	 { (char *)"raw_message_set_snr_list", (PyCFunction) _wrap_raw_message_set_snr_list, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_snr_list(raw_message self, pmt_vector_double snr_list)"},
 	 { (char *)"raw_message_set_power_list", (PyCFunction) _wrap_raw_message_set_power_list, METH_VARARGS | METH_KEYWORDS, (char *)"raw_message_set_power_list(raw_message self, pmt_vector_double power_list)"},

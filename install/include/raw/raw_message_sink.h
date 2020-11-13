@@ -48,6 +48,9 @@ class BLOCKS_API raw_message_sink : public gr::sync_block
   uint64_t      d_decode_time_secs;
   double        d_decode_time_frac;
 
+  // user logic
+  std::vector<double> d_rssi_list;
+
   friend BLOCKS_API raw_message_sink_sptr
   raw_make_message_sink(size_t itemsize, size_t num_symbol, raw_msg_queue_sptr msgq, bool dont_block);
 

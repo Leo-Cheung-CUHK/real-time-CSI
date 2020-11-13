@@ -57,6 +57,7 @@ raw_message_sink::raw_message_sink (size_t itemsize, size_t num_symbol, raw_msg_
   //SU_KEY_SET.push_back(SNR_SU_KEYS);
   SU_KEY_SET.push_back(SYNC_SU_CFO);
   SU_KEY_SET.push_back(SYNC_SU_SNR);
+  SU_KEY_SET.push_back(SYNC_SU_RSSI);
 
   MU_KEY_SET.push_back(SYNC_MU_CFO);
   MU_KEY_SET.push_back(SYNC_MU_SNR);
@@ -213,6 +214,14 @@ void raw_message_sink::get_stream_tags(const int port, const uint64_t nitems, pm
           d_cfo_list.push_back(cfo);
           if(DEBUG) printf(" [SINK] SYNC_SU_CFO | SU_CFO = %f | Offset = %ld \n", cfo, (long)sample_offset);
         }
+        else if (pmt::equal(KEY, SYNC_SU_RSSI))
+        {
+          d_rssi_list.clear();
+          double d_rssi = pmt::to_double(value);
+          d_rssi_list.push_back(d_rssi);
+          if (DEBUG)
+            printf(" [SINK] SYNC_SU_RSSI | SU_RSSI = %f | Offset = %ld \n", d_rssi, (long)sample_offset);
+        }
         else if(pmt::equal(KEY, SYNC_MU_CFO)) {
           d_cfo_list.clear();
           for(size_t i=0; i<pmt::length(value); i++) {
@@ -304,6 +313,7 @@ raw_message_sink::work(int noutput_items,
     msg->set_timestamp(d_peak_hw_secs, d_peak_hw_frac);
     msg->set_pctime(d_peak_pc_secs, d_peak_pc_frac);
     msg->set_cfo(d_cfo_list);
+    msg->set_rssi(d_rssi_list);
     msg->set_decode_time(d_decode_time_secs, d_decode_time_frac);
 
     msg->set_user_type(user_type);

@@ -45,29 +45,29 @@ raw_ofdm_demod_sptr raw_make_ofdm_demod(unsigned int fft_length,
 
 // lzyou: we should keep data_tones parameter used in gr_make_io_signature, though it can be set as length(d_data_carriers)
 raw_ofdm_demod::raw_ofdm_demod(unsigned int fft_length,
-                             unsigned int data_tones,
-                             unsigned int cplen,
-                             const std::vector<std::vector<gr_complex> > &preamble,
-                             std::vector<int> carrier_map,
-                             unsigned int num_data_symbol,
-                             int nbits) :
-			gr::block("ofdm_demod",
-				gr::io_signature::make2(2, 2, sizeof(gr_complex) * fft_length,
-						sizeof(char)),
-				gr::io_signature::make2(2, 2, sizeof(unsigned char) * data_tones,
-						sizeof(char))),
-				d_num_carriers(preamble[0].size()),
-				d_fft_length(fft_length),
-				d_cplen(cplen),
-				d_preamble(preamble),
-				d_cur_symbol(0),
-				d_min_symbols(0),
-				d_signal_out(false),
-        d_num_data_syms(num_data_symbol),
-        d_known_norm(0),
-        d_data_tones(data_tones),
-        d_coarse_freq(0),
-        d_nbits(nbits)
+                               unsigned int data_tones,
+                               unsigned int cplen,
+                               const std::vector<std::vector<gr_complex>> &preamble,
+                               std::vector<int> carrier_map,
+                               unsigned int num_data_symbol,
+                               int nbits) : gr::block("ofdm_demod",
+                                                      gr::io_signature::make2(2, 2, sizeof(gr_complex) * fft_length,
+                                                                              sizeof(char)),
+                                                      gr::io_signature::make2(2, 2, sizeof(unsigned char) * data_tones,
+                                                                              sizeof(char))),
+                                            d_num_carriers(preamble[0].size()),
+                                            d_fft_length(fft_length),
+                                            d_cplen(cplen),
+                                            d_preamble(preamble),
+                                            d_cur_symbol(0),
+                                            d_min_symbols(0),
+                                            d_signal_out(false),
+                                            d_num_data_syms(num_data_symbol),
+                                            d_known_norm(0),
+                                            d_data_tones(data_tones),
+                                            d_coarse_freq(0),
+                                            d_lts(0),
+                                            d_nbits(nbits)
 {
   //FIXME: dirty assert
   //assert(d_occupied_carriers == d_fft_length);
@@ -252,7 +252,15 @@ raw_ofdm_demod::finish_estimate()
   for(int i = 0; i < d_num_carriers*2; ++i) {
     d_factor[i] = factor;
   }
-  volk_32f_x2_divide_32f((float *)d_hestimate, (float *)d_hestimate, d_factor, d_num_carriers*2);
+  volk_32f_x2_divide_32f((float *)d_hestimate, (float *)d_hestimate, d_factor, d_num_carriers * 2);
+
+  // Calculate Received Signal Strength
+  for (unsigned int i = 0; i < d_num_carriers; ++i)
+  {
+    d_lts = norm(d_hestimate[i]);
+  }
+  d_lts = d_lts / d_num_carriers;
+
 #endif
 
 #if VERBOSE
@@ -519,6 +527,9 @@ void raw_ofdm_demod::write_stream_tags(int port, uint64_t nout)
 
   const pmt::pmt_t snr_val = pmt::list1(pmt::from_double(d_sync_snr));
   add_item_tag(port, nwritten_pos, SYNC_SU_SNR, snr_val, _id);
+
+  const pmt::pmt_t rssi_val = pmt::from_double(d_lts);
+  add_item_tag(port, nwritten_pos, SYNC_SU_RSSI, rssi_val, _id);
   /*
   const pmt::pmt_t cfo_vals = pmt::list2(
     pmt::from_double(d_sync_cfo),          // CFO of user A
@@ -587,7 +598,7 @@ int raw_ofdm_demod::general_work( int noutput_items,
     
       int port = 1;
       get_stream_tags(port, nin);
-      write_stream_tags(port, nout);
+      //write_stream_tags(port, nout);
     }
 
     if (newframe) {
@@ -635,6 +646,8 @@ int raw_ofdm_demod::general_work( int noutput_items,
       // time to produce
       if (d_cur_symbol == d_preamble.size()) {
         finish_estimate();
+        int port = 1;
+        write_stream_tags(port, nout);
       }
 
 	    if(d_cur_symbol == d_num_data_syms+d_preamble.size()) {

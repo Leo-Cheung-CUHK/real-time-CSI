@@ -126,6 +126,9 @@ protected:
 
   float d_coarse_freq;
 
+  // user logic
+  double d_lts; // signal power of the LTS
+
   // dynamic state
   std::vector<gr_complex> d_symbol_diff; // storage
   std::vector<gr_complex> d_known_diff;  // of d_preamble[0]

@@ -181,6 +181,11 @@ class raw_message_sptr(object):
         return _raw_util.raw_message_sptr_cfo_valid(self)
 
 
+    def rssi_valid(self):
+        """rssi_valid(raw_message_sptr self) -> bool"""
+        return _raw_util.raw_message_sptr_rssi_valid(self)
+
+
     def snr_value(self):
         """snr_value(raw_message_sptr self) -> double"""
         return _raw_util.raw_message_sptr_snr_value(self)
@@ -206,6 +211,11 @@ class raw_message_sptr(object):
         return _raw_util.raw_message_sptr_cfo_values(self)
 
 
+    def rssi_values(self):
+        """rssi_values(raw_message_sptr self) -> pmt_vector_double"""
+        return _raw_util.raw_message_sptr_rssi_values(self)
+
+
     def set_type(self, type):
         """set_type(raw_message_sptr self, long type)"""
         return _raw_util.raw_message_sptr_set_type(self, type)
@@ -224,6 +234,11 @@ class raw_message_sptr(object):
     def set_cfo(self, cfo_list):
         """set_cfo(raw_message_sptr self, pmt_vector_double cfo_list)"""
         return _raw_util.raw_message_sptr_set_cfo(self, cfo_list)
+
+
+    def set_rssi(self, rssi_list):
+        """set_rssi(raw_message_sptr self, pmt_vector_double rssi_list)"""
+        return _raw_util.raw_message_sptr_set_rssi(self, rssi_list)
 
 
     def set_snr(self, snr):
@@ -351,6 +366,11 @@ class raw_message(object):
         return _raw_util.raw_message_cfo_valid(self)
 
 
+    def rssi_valid(self):
+        """rssi_valid(raw_message self) -> bool"""
+        return _raw_util.raw_message_rssi_valid(self)
+
+
     def snr_value(self):
         """snr_value(raw_message self) -> double"""
         return _raw_util.raw_message_snr_value(self)
@@ -376,6 +396,11 @@ class raw_message(object):
         return _raw_util.raw_message_cfo_values(self)
 
 
+    def rssi_values(self):
+        """rssi_values(raw_message self) -> pmt_vector_double"""
+        return _raw_util.raw_message_rssi_values(self)
+
+
     def set_type(self, type):
         """set_type(raw_message self, long type)"""
         return _raw_util.raw_message_set_type(self, type)
@@ -394,6 +419,11 @@ class raw_message(object):
     def set_cfo(self, cfo_list):
         """set_cfo(raw_message self, pmt_vector_double cfo_list)"""
         return _raw_util.raw_message_set_cfo(self, cfo_list)
+
+
+    def set_rssi(self, rssi_list):
+        """set_rssi(raw_message self, pmt_vector_double rssi_list)"""
+        return _raw_util.raw_message_set_rssi(self, rssi_list)
 
 
     def set_snr(self, snr):
